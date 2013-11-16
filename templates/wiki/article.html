@@ -1,0 +1,34 @@
+{% extends "base_template.html" %}
+
+{% load staticfiles %}
+
+{% block content %}
+<div class="article">
+	<div class="post-header">
+		<div class="headline">
+			<div class="title">
+                {{ article.display_title }}
+			</div>
+			{% if request.session.logged_in %}
+			{% comment %}	<div>
+					<form action="{% url 'wiki:delete' %}" method='POST'>
+						{% csrf_token %}
+						<input type='hidden' name='pk' value='{{ post.pk }}'>
+						<input type='submit' value='Delete'>
+					</form>
+				</div> {% endcomment %}
+				<div>
+					<a href="{% url 'wiki:edit' article.title %}">Edit</a>
+				</div>
+			{% endif %}
+        </div>
+		<div class="datetime">{{article.last_edited}}</div>
+        {% if article.subtitle %}
+        <div class="subtitle">{{article.subtitle}}</div>
+        {% endif %}
+	</div>
+	{% autoescape off %}
+		<div class="content">{{ article.content }}</div>
+	{% endautoescape %}
+</div>
+{% endblock %}

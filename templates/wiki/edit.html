@@ -1,0 +1,28 @@
+{% extends 'base_template.html' %}
+
+{% block content %}
+<div style="text-align: left;">
+<form action="{% url 'wiki:edit' article.title %}" method="post">
+{% csrf_token %}
+
+<h1>Title: {{ article.title }}</h1>
+<br/>
+
+<label for="subtitle">Subtitle</label>
+<input type="text"
+       name="subtitle"
+       id="subtitle"
+       value="{{ article.subtitle }}"
+/>
+
+<br/>
+<label for="content">Content</label>
+<br/>
+<textarea name="content" id="content" cols="100" rows="25">{{ article.content }}
+</textarea>
+
+<input type="submit" value="Submit"/>
+
+</form>
+</div>
+{% endblock %}
